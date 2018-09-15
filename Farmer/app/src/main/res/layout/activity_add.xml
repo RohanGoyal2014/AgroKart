@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddActivity">
+
+    <Spinner
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Spinner>
+
+    <EditText
+        android:id="@+id/cost"
+        android:inputType="numberDecimal"
+        android:textSize="18sp"
+        android:layout_margin="8dp"
+        android:hint="@string/cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/qty"
+        android:inputType="numberDecimal"
+        android:textSize="18sp"
+        android:layout_margin="8dp"
+        android:hint="@string/qty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/units"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Spinner>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="डालें"
+        style="@style/Base.Widget.AppCompat.Button.Colored"/>
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">AgroKart</string>
+
+    <string name="login">लॉग इन करें</string>
+    <string name="register">नया उपयोगकर्ता</string>
+    <string name="phone">फ़ोन</string>
+    <string name="email">ईमेल</string>
+    <string name="password">पासवर्ड</string>
+    <string name="confirm_password">पासवर्ड की पुष्टि कीजिये</string>
+    <string name="name">नाम</string>
+    <string name="bank_details">बैंक विवरण</string>
+    <string name="ac_number">खाता संख्या</string>
+    <string name="isfc">आईएफएससी कोड</string>
+    <string name="are_you_new">क्या आप नए उपयोगकर्ता हैं?</string>
+    <string name="are_you_already">क्या आप एक पुराने उपयोगकर्ता हैं?</string>
+    <string name="cost">लागत</string>
+    <string name="qty">मात्रा</string>
+    <string name="select_item">वस्तु चुनें</string>
+    <string name="quintal">क्विंटल</string>
+    <string name="kg">किलो</string>
+    <string name="dozen">दर्जन</string>
+    <string name="error">क्षमा करें, कुछ समस्या आई है</string>
+
+
+    <string name="apple">सेब</string>
+    <string name="banana">केला</string>
+    <string name="orange">संतरा</string>
+    <string name="cucumber">खीरा</string>
+    <string name="onion">प्याज</string>
+    <string name="potato">आलू</string>
+    <string name="wheat">गेहूँ</string>
+    <string name="rice">चावल</string>
+    <string name="dal">दाल</string>
+
+    <string name="apple1">apple</string>
+    <string name="banana1">banana</string>
+    <string name="orange1">orange</string>
+    <string name="cucumber1">cucumber</string>
+    <string name="onion1">onion</string>
+    <string name="potato1">potato</string>
+    <string name="wheat1">wheat</string>
+    <string name="rice1">rice</string>
+    <string name="dal1">dal</string>
+</resources>

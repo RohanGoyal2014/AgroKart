@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "886730815787",
+    "firebase_url": "https://agrokart-435cc.firebaseio.com",
+    "project_id": "agrokart-435cc",
+    "storage_bucket": "agrokart-435cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886730815787:android:f01cf093c6f1eeed",
+        "android_client_info": {
+          "package_name": "com.example.rohangoyal2014.agrokart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886730815787-1vhd8pv58p9deitkj2s040qkft40a6kl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rohangoyal2014.agrokart",
+            "certificate_hash": "c9868fab1d5328ea70e716183ea9f0b87e1f2654"
+          }
+        },
+        {
+          "client_id": "886730815787-r9831avu49k30nf9oghvgb162re4unp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgalCxrChqk9_2lLQt2reBcbIwfo950_E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886730815787-r9831avu49k30nf9oghvgb162re4unp6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

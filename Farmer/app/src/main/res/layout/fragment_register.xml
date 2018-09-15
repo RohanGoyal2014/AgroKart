@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterFragment"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/password"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/conf_password"
+        android:inputType="textPassword"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/confirm_password"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/bank_details"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/account_number"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ac_number"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/ifsc"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/isfc"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/register_btn"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/register"
+        android:textSize="24sp"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:id="@+id/already_user"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/are_you_already"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
+</ScrollView>
