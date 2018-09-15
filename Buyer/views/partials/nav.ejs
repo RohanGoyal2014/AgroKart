@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>AgroKart</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/index.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+<nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+        <a style="height: 100%;" id="logo-container" href="/" class="brand-logo"><img class="logo" src="/images/logo.jpeg" alt=""></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Cart</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a class="modal-trigger" href="#modal1">Login/SignUp</a></li>
+        </ul>
+        <div id="modal1" class="modal center">
+            <form action="/login" method="POST">
+                <div class="container center-align">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="email" type="text" name="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="password" type="password" name="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="col s3"></div>
+                        <div class="col s6">
+                            <button style="color: white; padding: 0;"><img style="width: 100%;" src="images/signIn.png"></button>
+                        </div>
+                        <div class="col s3"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <ul class="right hide-on-med-and-down">
+            <li><a class="dropdown-trigger" data-target="dropdown1">Products</a>
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
+                    <li class="divider" tabindex="-1"></li>
+                    <li><a href="#!">three</a></li>
+                    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+                    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+                </ul>
+            </li>
+            <!-- Dropdown Structure -->
+
+        </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Login/SignUp</a></li>
+            <li><a href="#">Cart</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+</nav>

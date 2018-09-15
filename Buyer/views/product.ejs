@@ -1,0 +1,19 @@
+<%include ./partials/nav.ejs%>
+<%console.log("inside page:" + JSON.stringify(object));%>
+<div class="container">
+    <div class="card horizontal">
+        <div class="card-image">
+            <img src="/images/<%=name%>.jpeg">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <p>I am a very simple card. I am good at containing small bits of information.</p>
+            </div>
+            <div class="card-action">
+                <a href="#">This is a link</a>
+            </div>
+        </div>
+    </div>
+</div>
+<h6><%=JSON.stringify(object)%></h6>
+<%include ./partials/footer.ejs%>
