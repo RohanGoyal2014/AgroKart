@@ -26,7 +26,7 @@
         android:layout_weight="1">
 
         <ImageView
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:padding="50dp"
             android:src="@drawable/ic_add_circle_black_24dp"
             android:id="@+id/add"
@@ -40,7 +40,7 @@
 
         <ImageView
             android:padding="50dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:src="@drawable/ic_remove_red_eye_black_24dp"
             android:id="@+id/view"
             android:layout_width="0dp"
@@ -60,7 +60,7 @@
         android:layout_weight="1">
 
         <ImageView
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:padding="50dp"
             android:src="@drawable/ic_event_black_24dp"
             android:id="@+id/orders"
@@ -73,7 +73,7 @@
             android:layout_marginTop="8dp" />
 
         <ImageView
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:padding="50dp"
             android:src="@drawable/ic_account_balance_wallet_black_24dp"
             android:id="@+id/passbook"
