@@ -1,0 +1,80 @@
+<%include partials/nav.ejs%>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div style="padding-top: 50px;">
+    <div class="row">
+        <div class="col m1"></div>
+        <div class="col m10">
+            <nav class="nav-extended white pushpin z-depth-3">
+                <div class="nav-wrapper container">
+                    <a href="#" class="brand-logo blue-text left truncate">Fruits</a>
+
+                    <form action="" class="browser-default right">
+                        <input id="search-input" placeholder="Search" type="text" class="browser-default search-field" name="q" value="" autocomplete="off" aria-label="Search box">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <i class="material-icons search-close-icon">cancel</i>
+                    </form>
+
+                </div>
+
+            </nav>
+            <br>
+            <main>
+                <div class="section">
+                    <div class="row">
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/apple.jpeg">
+                                    <span class="card-title layer">Apple</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red" href="/product/apple"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/banana.jpeg">
+                                    <span class="card-title layer">Banana</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red" href="/product/banana"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/orange.jpeg">
+                                    <span class="card-title layer">Orange</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red" href="/product/orange"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/wheat.jpg">
+                                    <span class="card-title layer">Grapes</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div class="col m1"></div>
+    </div>
+</div>
+
+<%include partials/footer.ejs%>

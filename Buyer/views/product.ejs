@@ -1,0 +1,61 @@
+<%include ./partials/nav.ejs%>
+<%console.log("inside page:" + JSON.stringify(object));%>
+<div class="container" style="padding: 20px 0;">
+    <%
+    var list = new Array();
+    for(var key in object){
+        list.push(object[key]);
+        console.log(object[key]);
+    }
+    console.log(list);
+    if(list.length){
+    %>
+    <div class="card horizontal">
+        <div class="card-image" style="padding-left: 50px; ">
+            <img src="/images/<%=name%>.jpeg">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <h6>Mobile Number: <%=list[0].farmerEmail || "Not Available"%></h6>
+                <h6>Cost: Rs. <%=list[0].cost%></h6>
+                <h6>Availability: <%=list[0].qty%> <%=list[0].unit%></h6>
+                <h6>Select Quantity(Enter less than <%=list[0].qty%>): </h6>
+                <form action="/buy/<%=name%>/<%=list[0].farmerEmail%>" method="POST">
+                    <input type="text" name="quantity" class="input-field">
+                    <h6>Payment Option</h6>
+                    <div class="row">
+                        <div class="col s6">
+                            <label>
+                                <input name="group1" type="radio" value="1" checked />
+                                <span>COD</span>
+                            </label>
+                        </div>
+                        <div class="col s6">
+                            <label>
+                                <input name="group1" type="radio" value="2" />
+                                <span>PayTm</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn">Buy Now</button>
+                </form>
+            </div>
+            <div class="card-action">
+                <a href="#">See more sellers!</a>
+            </div>
+        </div>
+    </div>
+    <%}else{%>
+    <div class="row">
+        <div class="col s12">
+            <h3>Item not available now! Please try again later!</h3>
+        </div>
+        <div class="col s4"></div>
+        <div class="col s4">
+            <img style="width:100%"; src="/images/out.jpg" alt="">
+        </div>
+        <div class="col s4"></div>
+    </div>
+    <%}%>
+</div>
+<%include ./partials/footer.ejs%>

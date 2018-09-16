@@ -1,0 +1,79 @@
+<%include partials/nav.ejs%>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div style="padding-top: 50px;">
+    <div class="row">
+        <div class="col m1"></div>
+        <div class="col m10">
+            <nav class="nav-extended white pushpin z-depth-3">
+                <div class="nav-wrapper container">
+                    <a href="#" class="brand-logo blue-text left truncate">Vegetables</a>
+
+                    <form action="" class="browser-default right">
+                        <input id="search-input" placeholder="Search" type="text" class="browser-default search-field" name="q" value="" autocomplete="off" aria-label="Search box">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <i class="material-icons search-close-icon">cancel</i>
+                    </form>
+
+                </div>
+            </nav>
+            <br>
+            <main>
+                <div class="section">
+                    <div class="row">
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/cucumber.jpeg">
+                                    <span class="card-title layer">Cucumber</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red" href="/product/cucumber"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/onion.jpeg">
+                                    <span class="card-title layer">Onion</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red" href="/product/onion"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/potato.jpeg">
+                                    <span class="card-title layer">Potato</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red" href="/product/potato"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="images/wheat.jpg">
+                                    <span class="card-title layer">Carrot</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div class="col m1"></div>
+    </div>
+</div>
+
+<%include partials/footer.ejs%>
