@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +34,7 @@ public class AddtionSyncService extends Service {
 //    }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, int flags, int startId) {
 
         onTaskRemoved(intent);
 
@@ -46,7 +49,7 @@ public class AddtionSyncService extends Service {
 
 
             final SharedPreferences sharedPreferences = getSharedPreferences("tempData", MODE_PRIVATE);
-            Set<String> st = sharedPreferences.getStringSet("items", new HashSet<String>());
+            final Set<String> st = sharedPreferences.getStringSet("items", new HashSet<String>());
             final Set<String> unsynced=new HashSet<>();
 
             final SharedPreferences.Editor tempDataEditor=sharedPreferences.edit();
@@ -64,35 +67,66 @@ public class AddtionSyncService extends Service {
 
                 for(final String s:st){
 
-                    ItemModel im=new ItemModel(s,
+                    final ItemModel im=new ItemModel(s,
                             sharedPreferences.getString(s+"-seller",""),
                             sharedPreferences.getString(s+"-qty",""),
                             sharedPreferences.getString(s+"-cost",""),
                             sharedPreferences.getString(s+"-unit","")
                     );
 
-                    FirebaseDatabase.getInstance().getReference().child("products").child(im.getName()).push().setValue(im).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    tempDataEditor.putStringSet("items",new HashSet<String>());
+                    tempDataEditor.apply();
+//                    stopService(intent);
+
+
+                    FirebaseDatabase.getInstance().getReference().child("users").child("farmers").orderByChild("email").equalTo(im.getFarmerEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                Toast.makeText(AddtionSyncService.this, "Done", Toast.LENGTH_LONG).show();
+                            String phone=dataSnapshot.getValue().toString().substring(1,11);
+                            Log.e("Service",dataSnapshot.getValue().toString().substring(1,11));
+                            im.setFarmerEmail(phone);
 
-                                tempDataEditor.remove(s+"-qty");
-                                tempDataEditor.remove(s+"-seller");
-                                tempDataEditor.remove(s+"-cost");
-                                tempDataEditor.remove(s+"-unit");
-                                tempDataEditor.apply();
-                            } else {
-                                unsynced.add(s);
-                            }
+                            FirebaseDatabase.getInstance().getReference().child("products").child(im.getName()).push().setValue(im).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(AddtionSyncService.this, "सिंक किया गया है", Toast.LENGTH_LONG).show();
+
+                                        tempDataEditor.remove(s+"-qty");
+                                        tempDataEditor.remove(s+"-seller");
+                                        tempDataEditor.remove(s+"-cost");
+                                        tempDataEditor.remove(s+"-unit");
+
+//                                        tmp.remove(s);
+
+
+
+                                        tempDataEditor.apply();
+                                    } else {
+//                                        unsynced.add(s);
+                                    }
+                                }
+                            });
+
+//                            stopService(intent);
+
+//                            dataSnapshot.getValue().get
+//                            tempDataEditor.putStringSet("items",unsynced);
+//                            tempDataEditor.apply();
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
                     });
 
+
                 }
 
-                tempDataEditor.putStringSet("items",unsynced);
-                tempDataEditor.apply();
 
 
             }

@@ -39,6 +39,9 @@ public class DashboardActivity extends AppCompatActivity {
                 mAuth.signOut();
                 startActivity(new Intent(this,MainActivity.class));
                 finish();
+            case R.id.analytics:
+                startActivity(new Intent(this,TrendingActivity.class));
+//                finish();
         }
         return true;
     }
@@ -57,23 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
         passbook=findViewById(R.id.passbook);
 
 
-        FirebaseDatabase.getInstance().getReference().child("users").child("farmers").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds:dataSnapshot.getChildren()){
-//                    Log.e("Dashboard",ds.child("email").toString());
-                    if(ds.child("email").getValue().toString().equals(mAuth.getCurrentUser().getEmail())){
-                        tv.setText("आपका स्वागत है "+ds.child("name").getValue().toString());
-                        phoneNumber=ds.getKey().toString();
-                        break;
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
 
 

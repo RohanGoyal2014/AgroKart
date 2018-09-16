@@ -126,20 +126,35 @@ public class AddActivity extends AppCompatActivity {
 
                 }
 
-                ItemModel itemModel=new ItemModel(item,mAuth.getCurrentUser().getEmail(),qtyView.getText().toString().trim(),costView.getText().toString().trim(),unit);
+                final ItemModel itemModel=new ItemModel(item,mAuth.getCurrentUser().getEmail(),qtyView.getText().toString().trim(),costView.getText().toString().trim(),unit);
 
                 boolean isNetworkavailable=Utils.isNetworkAvailable(AddActivity.this);
 
                 if(isNetworkavailable){
 
-                    FirebaseDatabase.getInstance().getReference().child("products").child(itemModel.getName()).push().setValue(itemModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    FirebaseDatabase.getInstance().getReference().child("users").child("farmers").orderByChild("email").equalTo(itemModel.getFarmerEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(AddActivity.this, "उत्पाद डाला गया है", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(AddActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
-                            }
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String phone=dataSnapshot.getValue().toString().substring(1,11);
+
+                            itemModel.setFarmerEmail(phone);
+
+                            FirebaseDatabase.getInstance().getReference().child("products").child(itemModel.getName()).push().setValue(itemModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(AddActivity.this, "उत्पाद डाला गया है", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(AddActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
                     });
                 } else {

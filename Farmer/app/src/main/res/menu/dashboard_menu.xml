@@ -4,4 +4,8 @@
     <item android:id="@+id/sign_out"
         app:showAsAction="never"
         android:title="लॉग आउट करें" />
+
+    <item android:id="@+id/analytics"
+        app:showAsAction="never"
+        android:title="फसल विश्लेषण" />
 </menu>

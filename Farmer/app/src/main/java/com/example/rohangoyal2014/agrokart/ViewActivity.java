@@ -38,6 +38,8 @@ public class ViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
+        listAdapter=new ListAdapter(ViewActivity.this,onlineArrayList);
+
 
         itemNames.add("apple");
         itemNames.add("banana");
@@ -63,7 +65,7 @@ public class ViewActivity extends AppCompatActivity {
             queryRecOnline(0);
 
         } else {
-            offlineLayout.setVisibility(View.GONE);
+            onlineLayout.setVisibility(View.GONE);
         }
 
         SharedPreferences sharedPreferences=getSharedPreferences("tempData",MODE_PRIVATE);
@@ -71,7 +73,7 @@ public class ViewActivity extends AppCompatActivity {
         Set<String> st=sharedPreferences.getStringSet("items",new HashSet<String>());
 
         if(st.isEmpty()){
-            Toast.makeText(this, getString(R.string.no_results), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, getString(R.string.no_results), Toast.LENGTH_SHORT).show();
         } else {
             for(String s:st){
                 offlineArrayList.add(new ItemModel(s,
@@ -83,6 +85,7 @@ public class ViewActivity extends AppCompatActivity {
             }
             ListAdapter listAdapter1=new ListAdapter(this,offlineArrayList);
             offlineList.setAdapter(listAdapter1);
+            listAdapter1.notifyDataSetChanged();
         }
 
     }
@@ -102,10 +105,10 @@ public class ViewActivity extends AppCompatActivity {
                 if(pos<itemNames.size()-1){
                     queryRecOnline(pos+1);
                     if(onlineArrayList.isEmpty()){
-                        Toast.makeText(ViewActivity.this, getString(R.string.no_results), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ViewActivity.this, getString(R.string.no_results), Toast.LENGTH_SHORT).show();
                     } else {
-                        listAdapter=new ListAdapter(ViewActivity.this,onlineArrayList);
                         onlineList.setAdapter(listAdapter);
+                        listAdapter.notifyDataSetChanged();
                     }
                 }
             }

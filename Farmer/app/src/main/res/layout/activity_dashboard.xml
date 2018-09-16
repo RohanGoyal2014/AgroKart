@@ -8,8 +8,8 @@
     android:orientation="vertical">
 
     <TextView
+        android:background="@drawable/farmer"
         android:textSize="20sp"
-        tools:text="@string/app_name"
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,7 +26,7 @@
         android:layout_weight="1">
 
         <ImageView
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:padding="50dp"
             android:src="@drawable/ic_add_circle_black_24dp"
             android:id="@+id/add"
@@ -73,7 +73,7 @@
             android:layout_marginTop="8dp" />
 
         <ImageView
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:padding="50dp"
             android:src="@drawable/ic_account_balance_wallet_black_24dp"
             android:id="@+id/passbook"

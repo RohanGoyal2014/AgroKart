@@ -64,6 +64,13 @@ public class ListAdapter extends ArrayAdapter<ItemModel> {
 
         }
 
+        listView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return;
+            }
+        });
+
         return listView;
 
     }
