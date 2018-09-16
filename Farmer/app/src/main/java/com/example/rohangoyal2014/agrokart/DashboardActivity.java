@@ -39,6 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
                 mAuth.signOut();
                 startActivity(new Intent(this,MainActivity.class));
                 finish();
+                break;
             case R.id.analytics:
                 startActivity(new Intent(this,TrendingActivity.class));
 //                finish();

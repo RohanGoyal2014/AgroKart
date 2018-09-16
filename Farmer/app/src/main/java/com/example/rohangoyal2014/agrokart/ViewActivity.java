@@ -3,6 +3,7 @@ package com.example.rohangoyal2014.agrokart;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -60,6 +61,8 @@ public class ViewActivity extends AppCompatActivity {
         offlineLayout=findViewById(R.id.offline);
         offlineList=findViewById(R.id.offline_list);
 
+        onlineList.setAdapter(listAdapter);
+
         if(Utils.isNetworkAvailable(this)){
 
             queryRecOnline(0);
@@ -94,20 +97,25 @@ public class ViewActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("products").child(itemNames.get(pos)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds:dataSnapshot.getChildren()){
-                    onlineArrayList.add(new ItemModel(ds.child("name").getValue().toString(),
-                            mAuth.getCurrentUser().getEmail(),
-                            ds.child("qty").getValue().toString(),
-                            ds.child("cost").getValue().toString(),
-                            ds.child("unit").getValue().toString()
-                    ));
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        onlineArrayList.add(new ItemModel(ds.child("name").getValue().toString(),
+                                mAuth.getCurrentUser().getEmail(),
+                                ds.child("qty").getValue().toString(),
+                                ds.child("cost").getValue().toString(),
+                                ds.child("unit").getValue().toString()
+                        ));
+                    }
+                } catch (Exception e){
+                    Log.e("ViewActivity",e.toString());
                 }
+                listAdapter.notifyDataSetChanged();
                 if(pos<itemNames.size()-1){
                     queryRecOnline(pos+1);
                     if(onlineArrayList.isEmpty()){
 //                        Toast.makeText(ViewActivity.this, getString(R.string.no_results), Toast.LENGTH_SHORT).show();
                     } else {
-                        onlineList.setAdapter(listAdapter);
+
                         listAdapter.notifyDataSetChanged();
                     }
                 }

@@ -61,7 +61,7 @@ public class TrendingActivity extends AppCompatActivity {
                                     7,
                                     ds.getValue().toString().indexOf('}')
                             )
-                    )),ds.getKey().toString());
+                    )),Utils.byIdName(TrendingActivity.this,ds.getKey().toString()));
                     Log.e("Trending",String.valueOf(pr.first));
                     parr.add(pr);
 
