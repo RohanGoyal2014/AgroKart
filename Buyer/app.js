@@ -26,8 +26,8 @@ app.use(express.static("public"));
 
 var user;
 var db = admin.database();
-firebase.auth().onAuthStateChanged(function(user){
-    if(user){
+firebase.auth().onAuthStateChanged(function(userAvailable){
+    if(userAvailable){
         user = firebase.auth().currentUser;
     }else{
         user = {};
@@ -122,10 +122,27 @@ app.get("/pulses", function (req, res) {
 
 app.get("/product/:name", function (req, res) {
     console.log("PRODUCT PAGE");
+    var count;
+    db.ref("/searches/" + req.params.name).once("value", function (snap) {
+        console.log(snap.val());
+        if(snap.val())
+            count = snap.val().count;
+        else
+            count = 0;
+        count++;
+        db.ref("/searches/" + req.params.name).set({
+            count : count,
+        }, function (err) {
+            if(err)
+                console.log(err);
+            else
+                console.log("updated searches count!");
+        });
+    });
     // res.render("product");
     db.ref("/products/" + req.params.name).on("value", function (snapshot) {
         console.log(snapshot.val());
-        res.render("product", {object: snapshot.val(), name: req.params.name});
+        res.render("product", {object: snapshot.val(), name: req.params.name, user: user});
     });
 });
 
@@ -140,16 +157,56 @@ app.post("/login", function(req, res){
             firebase.auth().createUserWithEmailAndPassword(email, pass)
                 .catch(function (err) {
                     console.log("err with sign up");
+                    res.redirect("/");
                 })
                 .then(function (user) {
                     console.log("signed up successfully!");
+                    res.redirect("/");
                 });
         })
         .then(function (user) {
             console.log("user signed in!:" + JSON.stringify(user));
+            res.redirect("/");
         });
-    res.redirect("/");
 });
+
+app.post("/buy/:item/:email", function (req, res) {
+    console.log("buy called!");
+    db.ref("/products/" + req.params.item).orderByChild("farmerEmail").once("value", function (snapshot) {
+        console.log(snapshot.val());
+        var newQ = snapshot.val();
+        var list = new Array();
+        for(var key in newQ){
+            console.log(key + "=>" + newQ[key]);
+            list.push(newQ[key]);
+        }
+
+        list[0].quantity -= req.body.quantity;
+
+        db.ref("/products/" + req.params.item).set({
+            quantity: list[0].quantity,
+        }, function (err) {
+            if(err)
+                console.log(err);
+            else{
+                db.ref("/transfers").set({
+                    quantity: req.body.quantity,
+                    item: req.params.item,
+                    paymentType: req.body.group1,
+                    email: user.email,
+                }, function (err) {
+                    if(err)
+                        console.log(err);
+                    else {
+                        console.log("transaction successfull");
+                        res.redirect("/");
+                    }
+                });
+            }
+        });
+    });
+});
+
 
 app.listen(3000, function () {
     console.log("server started!");

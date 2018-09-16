@@ -17,18 +17,37 @@
         <ul class="right hide-on-med-and-down">
             <li><a href="#">Cart</a></li>
         </ul>
+        <%
+        console.log("LOGGED IN USER: " + JSON.stringify(user.length));
+        function isEmpty(obj) {
+            for(var prop in obj) {
+                if(obj.hasOwnProperty(prop))
+                    return false;
+            }
+
+            return JSON.stringify(obj) === JSON.stringify({});
+        }
+        if(isEmpty(user)){
+        %>
         <ul class="right hide-on-med-and-down">
-            <li><a class="modal-trigger" href="#modal1">Login/SignUp</a></li>
+                <li><a class="modal-trigger" href="#modal1">Login/SignUp</a></li>
         </ul>
+        <%} else{%>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="">Welcome, <%=user.email%></a></li>
+        </ul>
+        <%}%>
         <div id="modal1" class="modal center">
             <form action="/login" method="POST">
                 <div class="container center-align">
+                    <br>
+                    <h4 style="color: black">Login/SignUp</h4>
                     <div class="row">
-                        <div class="input-field col s6">
+                        <div class="input-field col s12">
                             <input id="email" type="text" name="email" class="validate">
                             <label for="email">Email</label>
                         </div>
-                        <div class="input-field col s6">
+                        <div class="input-field col s12">
                             <input id="password" type="password" name="password" class="validate">
                             <label for="password">Password</label>
                         </div>
