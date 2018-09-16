@@ -1,8 +1,16 @@
 package com.example.rohangoyal2014.agrokart;
 
 public class ItemModel {
+    public String getFarmerEmail() {
+        return farmerEmail;
+    }
+
+    public void setFarmerEmail(String farmerEmail) {
+        this.farmerEmail = farmerEmail;
+    }
 
     String name;
+    String farmerEmail;
 
     public void setName(String name) {
         this.name = name;
@@ -20,11 +28,11 @@ public class ItemModel {
         this.unit = unit;
     }
 
-    public ItemModel(String name, String qty, String cost, String unit) {
+    public ItemModel(String name, String farmerEmail, String qty, String cost, String unit) {
         this.name = name;
+        this.farmerEmail = farmerEmail;
         this.qty = qty;
         this.cost = cost;
-
         this.unit = unit;
     }
 

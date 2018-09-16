@@ -1,6 +1,7 @@
 package com.example.rohangoyal2014.agrokart;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,8 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.example.rohangoyal2014.agrokart.Utils.byIdName;
+import static com.example.rohangoyal2014.agrokart.Utils.mAuth;
 import static com.example.rohangoyal2014.agrokart.Utils.phoneNumber;
 
 public class AddActivity extends AppCompatActivity {
@@ -122,25 +126,50 @@ public class AddActivity extends AppCompatActivity {
 
                 }
 
-                ItemModel itemModel=new ItemModel(item,qtyView.getText().toString().trim(),costView.getText().toString().trim(),unit);
+                final ItemModel itemModel=new ItemModel(item,mAuth.getCurrentUser().getEmail(),qtyView.getText().toString().trim(),costView.getText().toString().trim(),unit);
 
                 boolean isNetworkavailable=Utils.isNetworkAvailable(AddActivity.this);
 
                 if(isNetworkavailable){
 
-                    FirebaseDatabase.getInstance().getReference().child("products").child(itemModel.getName()).push().setValue(itemModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    FirebaseDatabase.getInstance().getReference().child("users").child("farmers").orderByChild("email").equalTo(itemModel.getFarmerEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(AddActivity.this, "उत्पाद डाला गया है", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(AddActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
-                            }
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String phone=dataSnapshot.getValue().toString().substring(1,11);
+
+                            itemModel.setFarmerEmail(phone);
+
+                            FirebaseDatabase.getInstance().getReference().child("products").child(itemModel.getName()).push().setValue(itemModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(AddActivity.this, "उत्पाद डाला गया है", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(AddActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
                     });
                 } else {
 
-
+                    Set<String> itemSet=getSharedPreferences("textData",MODE_PRIVATE).getStringSet("items",new HashSet<String>());
+                    itemSet.add(itemModel.getName());
+                    SharedPreferences sharedPreferences=getSharedPreferences("tempData",MODE_PRIVATE);
+                    SharedPreferences.Editor sharedPreferencesEditor=sharedPreferences.edit();
+                    sharedPreferencesEditor.putStringSet("items",itemSet);
+                    sharedPreferencesEditor.putString(itemModel.getName().concat("-cost"),itemModel.getCost());
+                    sharedPreferencesEditor.putString(itemModel.getName().concat("-qty"),itemModel.getQty());
+                    sharedPreferencesEditor.putString(itemModel.getName().concat("-unit"),itemModel.getUnit());
+                    sharedPreferencesEditor.putString(itemModel.getName().concat("-seller"),itemModel.farmerEmail);
+                    sharedPreferencesEditor.apply();
+                    Toast.makeText(AddActivity.this, "उत्पाद ड्राफ्ट में सहेजा गया है", Toast.LENGTH_SHORT).show();
 
                 }
 

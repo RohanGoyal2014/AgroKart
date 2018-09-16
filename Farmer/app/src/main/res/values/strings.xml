@@ -32,13 +32,8 @@
     <string name="rice">चावल</string>
     <string name="dal">दाल</string>
 
-    <string name="apple1">apple</string>
-    <string name="banana1">banana</string>
-    <string name="orange1">orange</string>
-    <string name="cucumber1">cucumber</string>
-    <string name="onion1">onion</string>
-    <string name="potato1">potato</string>
-    <string name="wheat1">wheat</string>
-    <string name="rice1">rice</string>
-    <string name="dal1">dal</string>
+    <string name="drafts">ड्राफ्ट</string>
+    <string name="saved_items">सहेजे गए आइटम</string>
+    <string name="no_results">कोई परिणाम नहीं मिला</string>
+
 </resources>

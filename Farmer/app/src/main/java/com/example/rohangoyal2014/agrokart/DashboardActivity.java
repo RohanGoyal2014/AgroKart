@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +26,27 @@ public class DashboardActivity extends AppCompatActivity {
     TextView tv;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dashboard_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+            case R.id.sign_out:
+                mAuth.signOut();
+                startActivity(new Intent(this,MainActivity.class));
+                finish();
+            case R.id.analytics:
+                startActivity(new Intent(this,TrendingActivity.class));
+//                finish();
+        }
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
@@ -37,23 +60,9 @@ public class DashboardActivity extends AppCompatActivity {
         passbook=findViewById(R.id.passbook);
 
 
-        FirebaseDatabase.getInstance().getReference().child("users").child("farmers").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds:dataSnapshot.getChildren()){
-//                    Log.e("Dashboard",ds.child("email").toString());
-                    if(ds.child("email").getValue().toString().equals(mAuth.getCurrentUser().getEmail())){
-                        tv.setText("आपका स्वागत है "+ds.child("name").getValue().toString());
-                        phoneNumber=ds.getKey().toString();
-                        break;
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

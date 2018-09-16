@@ -19,16 +19,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".AddActivity"
-            android:parentActivityName=".DashboardActivity"/>
-        <activity android:name=".ViewActivity"
-            android:parentActivityName=".DashboardActivity"/>
-        <activity android:name=".OrderActivity"
-            android:parentActivityName=".DashboardActivity"/>
-        <activity android:name=".PassbookActivity"
-            android:parentActivityName=".DashboardActivity"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DashboardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddActivity"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewActivity"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderActivity"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PassbookActivity"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".AddtionSyncService" />
+
+        <activity android:name=".TrendingActivity"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
