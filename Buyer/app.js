@@ -27,78 +27,15 @@ app.use(express.static("public"));
 var user;
 var db = admin.database();
 firebase.auth().onAuthStateChanged(function(userAvailable){
+    console.log("LOGIN STATE CHANGED!");
     if(userAvailable){
         user = firebase.auth().currentUser;
+        console.log("USER THERE: " + JSON.stringify(user));
     }else{
+        console.log("USER NTO FOUND");
         user = {};
     }
 });
-
-// function fetchVegetables(){
-//     db.ref("/static_sell/vegetables").on("value", function (snapshot) {
-//         console.log(snapshot.val());
-//         p = snapshot.val();
-//         var ans = [], c = 0;
-//         for (var key in p) {
-//             if (p.hasOwnProperty(key)) {
-//                 console.log(key + " -> " + p[key]);
-//                 // db.ref("products/" + key).on("value", function (snapshot) {
-//                 //     console.log(snapshot.val());
-//                 // });
-//                 ans[c] = key;
-//                 c++;
-//             }
-//         }
-//         console.log(ans);
-//         return ans;
-//     }, function (error) {
-//         console.log(error);
-//     });
-// }
-//
-// function fetchFruits(){
-//     db.ref("/static_sell/fruits").on("value", function (snapshot) {
-//         console.log(snapshot.val());
-//         p = snapshot.val();
-//         var ans = [], c = 0;
-//         for (var key in p) {
-//             if (p.hasOwnProperty(key)) {
-//                 console.log(key + " -> " + p[key]);
-//                 // db.ref("products/" + key).on("value", function (snapshot) {
-//                 //     console.log(snapshot.val());
-//                 // });
-//                 ans[c] = key;
-//                 c++;
-//             }
-//         }
-//         console.log(ans);
-//         return ans;
-//     }, function (error) {
-//         console.log(error);
-//     });
-// }
-// function fetchPulses(){
-//     db.ref("/static_sell/pulses").on("value", function (snapshot) {
-//         console.log(snapshot.val());
-//         p = snapshot.val();
-//         var ans = [], c = 0;
-//         for (var key in p) {
-//             if (p.hasOwnProperty(key)) {
-//                 console.log(key + " -> " + p[key]);
-//                 ans[c] = key;
-//                 c++;
-//             }
-//         }
-//         console.log(ans);
-//         return ans;
-//     }, function (error) {
-//         console.log(error);
-//     });
-// }
-//
-// function fetchProduct(){
-//
-// }
 
 app.get("/", function (req, res) {
     res.render("index", {user: user});
@@ -106,17 +43,14 @@ app.get("/", function (req, res) {
 
 app.get("/vegetables", function (req, res) {
     console.log("Vegetables!");
-    // var list = fetchVegetables();
     res.render("vegetables", {user: user});
 });
 app.get("/fruits", function (req, res) {
     console.log("Fruits!");
-    // var list = fetchFruits();
     res.render("fruits", {user: user});
 });
 app.get("/pulses", function (req, res) {
     console.log("Pulses!");
-    // var list = fetchPulses();
     res.render("pulses", {user: user});
 });
 
@@ -137,13 +71,14 @@ app.get("/product/:name", function (req, res) {
                 console.log(err);
             else
                 console.log("updated searches count!");
+            db.ref("/products/" + req.params.name).on("value", function (snapshot) {
+                console.log(snapshot.val());
+                res.render("product", {object: snapshot.val(), name: req.params.name, user: user});
+            });
         });
     });
     // res.render("product");
-    db.ref("/products/" + req.params.name).on("value", function (snapshot) {
-        console.log(snapshot.val());
-        res.render("product", {object: snapshot.val(), name: req.params.name, user: user});
-    });
+
 });
 
 app.post("/login", function(req, res){
@@ -172,31 +107,35 @@ app.post("/login", function(req, res){
 
 app.post("/buy/:item/:email", function (req, res) {
     console.log("buy called!");
-    db.ref("/products/" + req.params.item).orderByChild("farmerEmail").once("value", function (snapshot) {
-        console.log(snapshot.val());
+    db.ref("/products/" + req.params.item).orderByChild("farmerEmail").equalTo(req.params.email).once("value", function (snapshot) {
+        console.log("SNAPSHOT:" + JSON.stringify(snapshot.val()));
         var newQ = snapshot.val();
         var list = new Array();
+        var keyList = new Array();
         for(var key in newQ){
-            console.log(key + "=>" + newQ[key]);
+            console.log(key + "=>" + JSON.stringify(newQ[key]));
             list.push(newQ[key]);
+            keyList.push(key);
         }
 
-        list[0].quantity -= req.body.quantity;
+        list[0].qty -= req.body.quantity;
 
-        db.ref("/products/" + req.params.item).set({
-            quantity: list[0].quantity,
+        db.ref("/products/" + req.params.item + "/" + keyList[0]).update({
+            qty: list[0].qty,
         }, function (err) {
             if(err)
                 console.log(err);
             else{
-                db.ref("/transfers").set({
+                console.log("SUCCESSFULLY UPDATED PRODUCTS!");
+                db.ref("/transfers").push().set({
+                    sellerEmail: req.params.email,
                     quantity: req.body.quantity,
                     item: req.params.item,
                     paymentType: req.body.group1,
                     email: user.email,
                 }, function (err) {
                     if(err)
-                        console.log(err);
+                        console.log("ERror in transaction:" + JSON.stringify(err));
                     else {
                         console.log("transaction successfull");
                         res.redirect("/");
